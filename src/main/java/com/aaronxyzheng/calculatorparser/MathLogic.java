@@ -12,7 +12,25 @@ public class MathLogic {
     }
 
     public ArrayList<String> tokenizer(String userExpression) {
-        return new ArrayList<>();
+        ArrayList<String> tokenedArray = new ArrayList<>(); // Return Array
+
+        userExpression = userExpression.replace(" ", "");
+
+        String numberHolder = "";
+        
+        for(int i = 0; i < userExpression.length(); i++) {
+            if(Character.isDigit(userExpression.charAt(i))) {
+                numberHolder += String.valueOf(userExpression.charAt(i));
+            } else {
+                tokenedArray.add(numberHolder);
+                numberHolder = "";
+                tokenedArray.add(String.valueOf(userExpression.charAt(i)));
+            }
+        }
+
+        if(!numberHolder.equals("")) tokenedArray.add(numberHolder);
+
+        return tokenedArray;
     }
 
     public Queue<String> infixToPostfix(ArrayList<String> infixArray) {
