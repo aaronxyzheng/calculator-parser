@@ -1,7 +1,6 @@
 package com.aaronxyzheng.calculatorparser;
 
 import java.util.Scanner;
-import com.aaronxyzheng.calculatorparser.datastructures.*;
 
 public class Main {
 
@@ -25,7 +24,12 @@ public class Main {
 
         System.out.print("Expression: ");
         String userExpression = scanner.nextLine();
-        System.out.println("Answer: " + mathLogic.solveExpression(userExpression));
+        double answer = mathLogic.solveExpression(userExpression);
+        if(answer % 1 == 0) {
+            System.out.println("Answer: " + (int) answer);
+        } else {
+            System.out.println("Answer: " + answer);
+        }
         System.out.println();
     }
 }

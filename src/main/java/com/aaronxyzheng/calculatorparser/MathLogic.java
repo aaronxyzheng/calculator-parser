@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MathLogic {
-    public int solveExpression(String userExpression) {
+    public double solveExpression(String userExpression) {
         ArrayList<String> tokenList = tokenizer(userExpression);
         Queue<String> postfixQueue = infixToPostfix(tokenList);
-        int answer = postfixEvaluater(postfixQueue);
+        Double answer = postfixEvaluater(postfixQueue);
         return answer;
     }
 
@@ -83,8 +83,42 @@ public class MathLogic {
         return outputQueue;
     }
 
-    public int postfixEvaluater(Queue<String> postfixQueue) {
-        return 1;
+    public double postfixEvaluater(Queue<String> postfixQueue) {
+        Stack<String> operandStack = new Stack<>();
+
+        while(!postfixQueue.isEmpty()) {
+            if(postfixQueue.peek().matches("\\d+")) {
+                operandStack.push(postfixQueue.dequeue());
+            } else {
+                if(postfixQueue.peek().equals("+")) { // If the item is a +
+                    postfixQueue.dequeue();
+                    double addend1 = Double.parseDouble(operandStack.pop());
+                    double addend2 = Double.parseDouble(operandStack.pop());
+                    double sum = addend1 + addend2;
+                    operandStack.push(Double.toString(sum));
+                } else if(postfixQueue.peek().equals("-")) { // If item is -
+                    postfixQueue.dequeue();
+                    double subtrahend = Double.parseDouble(operandStack.pop());
+                    double minuend = Double.parseDouble(operandStack.pop());
+                    double difference = minuend - subtrahend;
+                    operandStack.push(Double.toString(difference));
+                } else if(postfixQueue.peek().equals("*") || postfixQueue.peek().equals("x")) { // If item is x or *
+                    postfixQueue.dequeue();
+                    double factor1 = Double.parseDouble(operandStack.pop());
+                    double factor2 = Double.parseDouble(operandStack.pop());
+                    double product = factor1 * factor2;
+                    operandStack.push(Double.toString(product));
+                } else if(postfixQueue.peek().equals("/")) { // If item is x or *
+                    postfixQueue.dequeue();
+                    double divisor = Double.parseDouble(operandStack.pop());
+                    double dividend = Double.parseDouble(operandStack.pop());
+                    double quotient = dividend/divisor;
+                    operandStack.push(Double.toString(quotient));
+                }
+            }
+        }
+
+        return Double.parseDouble(operandStack.pop());
     }
     
 }
