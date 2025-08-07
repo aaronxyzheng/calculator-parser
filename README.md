@@ -26,7 +26,8 @@ cd bible-verse-bootcamp
 mvn compile exec:java
 ```
 
-## Project Structre
+## Project Structure
+```pgsql
 .
 ├── pom.xml // For Maven 
 ├── README.md 
@@ -42,6 +43,8 @@ mvn compile exec:java
 │                       ├── Main.java // User Interface
 │                       └── MathLogic.java // Where the Math gets done and expression gets evaluated.
 └── target
+```
+
 
 ## What I Learned :)
 
