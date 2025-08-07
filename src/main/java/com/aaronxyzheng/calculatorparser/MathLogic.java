@@ -84,6 +84,7 @@ public class MathLogic {
     }
 
     public double postfixEvaluater(Queue<String> postfixQueue) {
+
         Stack<String> operandStack = new Stack<>();
 
         while(!postfixQueue.isEmpty()) {
@@ -114,6 +115,12 @@ public class MathLogic {
                     double dividend = Double.parseDouble(operandStack.pop());
                     double quotient = dividend/divisor;
                     operandStack.push(Double.toString(quotient));
+                } else if(postfixQueue.peek().equals("^")) { // If item is x or *
+                    postfixQueue.dequeue();
+                    double exponent = Double.parseDouble(operandStack.pop());
+                    double base = Double.parseDouble(operandStack.pop());
+                    double result = Math.pow(base, exponent);
+                    operandStack.push(Double.toString(result));
                 }
             }
         }
